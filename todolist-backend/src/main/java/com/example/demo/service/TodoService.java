@@ -47,7 +47,7 @@ public class TodoService {
 
     public Todo createTodo(CreateTodoRequest request) {
         // Kiểm tra xem title có trống hay không
-        if(request.getTitle() ==  null) {
+        if(request.getTitle().length() == 0) {
             throw new BadRequestException("Title can't empty");
         }
 
@@ -63,6 +63,11 @@ public class TodoService {
         Optional<Todo> todoOptional = findById(id);
         if(todoOptional.isEmpty()) {
             throw new NotFoundException("Not found with id = " + id);
+        }
+
+        // Kiểm tra xem title có trống hay không
+        if(request.getTitle().length() == 0) {
+            throw new BadRequestException("Title can't empty");
         }
 
         Todo todo = todoOptional.get();
